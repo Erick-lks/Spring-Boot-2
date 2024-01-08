@@ -3,16 +3,13 @@ package academy.devdojo.caetano.springbootacademy.exception;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.experimental.SuperBuilder;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 
-@Data
-@Builder
-public class BadRequestExceptionDetails {
-    private  String title;
-    private int status;
-    private String details;
-    private String developerMessage;
-    private LocalDateTime timestamp;
 
+@Getter
+@SuperBuilder
+public class BadRequestExceptionDetails extends ExceptionDetails {
 }

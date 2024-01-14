@@ -9,6 +9,8 @@ import academy.devdojo.caetano.springbootacademy.util.DataUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +29,10 @@ public class AnimeController {
 
 
     @GetMapping
-    //localHost:8080/animes
 
-    public ResponseEntity<List<Anime>> list() {
+    public ResponseEntity<Page<Anime>> list(Pageable pageable) {
         log.info(dataUtil.formatLocalDateTimetoDatabaseStyle(LocalDateTime.now()));
-        return ResponseEntity.ok(animeService.listall());
+        return ResponseEntity.ok(animeService.listall(pageable));
     }
 
     @GetMapping(path = "/{id}")

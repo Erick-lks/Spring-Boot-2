@@ -10,5 +10,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-      show-sql: true
 
+
+loggin:
+  level:
+    org:
+       hiberante:
+         SQL: DEBUG

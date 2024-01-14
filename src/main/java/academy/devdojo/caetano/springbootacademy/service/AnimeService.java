@@ -7,6 +7,8 @@ import academy.devdojo.caetano.springbootacademy.repository.AnimeRepository;
 import academy.devdojo.caetano.springbootacademy.requests.AnimePostRequestBody;
 import academy.devdojo.caetano.springbootacademy.requests.AnimePutRequestBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +26,8 @@ public class AnimeService {
 
     private final AnimeRepository animerepository;
 
-    public List<Anime> listall() {
-        return animerepository.findAll();
+    public Page<Anime> listall(Pageable pageable) {
+        return animerepository.findAll(pageable);
 
     }
     public List<Anime> findByName(String name) {

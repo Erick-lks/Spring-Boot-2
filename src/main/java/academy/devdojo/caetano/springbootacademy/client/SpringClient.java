@@ -31,39 +31,43 @@ public class SpringClient {
                 new ParameterizedTypeReference<List<Anime>>() {
                 });
 
+        log.info(exchange.getBody());
+
     /*    Anime kingdom = Anime.builder().name("Kingdom").build();
-         Anime animesavedwithoutPOST = new RestTemplate().postForObject("http://localhost:8080/animes", kingdom, Anime.class);
-        log.info("Saved Anime without RequestMethod POST {}", animesavedwithoutPOST);
+         Anime kingdomsaved = new RestTemplate().postForObject("http://localhost:8080/animes", kingdom, Anime.class);
+        log.info("Saved Anime without RequestMethod POST {}", kingdomsaved);
 
         NEED A METHOD HttpHeaders
 */
         Anime samuraiChampoo = Anime.builder().name("Samurai Champoo2").build();
-       ResponseEntity<Anime> samuraiChampoosaved = new RestTemplate().exchange("http://localhost:8080/animes",
-               HttpMethod.POST,
-        new HttpEntity<>(samuraiChampoo, createJsonHeader()), Anime.class);
+        ResponseEntity<Anime> samuraiChampoosaved = new RestTemplate().exchange("http://localhost:8080/animes",
+                HttpMethod.POST,
+                new HttpEntity<>(samuraiChampoo, createJsonHeader()), Anime.class);
 
         log.info("saved anime {} ", samuraiChampoosaved);
 
-        Anime animetoUpdate = samuraiChampoosaved.getBody();
-        animetoUpdate.setName("Super Eleven");
+        Anime animeToBeUpdate = samuraiChampoosaved.getBody();
+        animeToBeUpdate.setName("Super Eleven");
 
-            ResponseEntity<Void> samuraichampooUpdate = new RestTemplate()
+        ResponseEntity<Void> samuraichampooUpdate = new RestTemplate()
                 .exchange("http://localhost:8080/animes", HttpMethod.PUT,
-                        new HttpEntity<>(animetoUpdate,createJsonHeader()), Void.class );
+                        new HttpEntity<>(animeToBeUpdate, createJsonHeader()), Void.class);
 
-            log.info(samuraichampooUpdate);
+        log.info(samuraichampooUpdate);
 
 
         ResponseEntity<Void> samuraichampooDelete = new RestTemplate()
                 .exchange("http://localhost:8080/animes/{id}", HttpMethod.DELETE, null
-                        , Void.class , animetoUpdate.getId());
+                        , Void.class, animeToBeUpdate.getId());
         log.info(samuraichampooDelete);
 
-        }
+    }
+
     private static HttpHeaders createJsonHeader() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         return httpHeaders;
-    }}
+    }
+}
 
 

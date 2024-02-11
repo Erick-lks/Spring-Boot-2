@@ -24,20 +24,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AnimeController {
 
-    private final DataUtil dataUtil;
+
     private final AnimeService animeService;
 
 
     @GetMapping
 
     public ResponseEntity<Page<Anime>> list(Pageable pageable) {
-        log.info(dataUtil.formatLocalDateTimetoDatabaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(animeService.listall(pageable));
     }
     @GetMapping(path = "/all")
 
     public ResponseEntity<List<Anime>>listAll() {
-        log.info(dataUtil.formatLocalDateTimetoDatabaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(animeService.listallNomPageable());
     }
 
